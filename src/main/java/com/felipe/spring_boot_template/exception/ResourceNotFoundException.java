@@ -1,0 +1,12 @@
+package com.felipe.spring_boot_template.exception;
+
+public class ResourceNotFoundException extends BusinessException {
+
+    public ResourceNotFoundException(String resource, Object id) {
+        super(String.format("%s not found with id: %s", resource, id));
+    }
+
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
