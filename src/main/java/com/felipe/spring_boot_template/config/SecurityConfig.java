@@ -32,7 +32,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserDetailsService userDetailsService;
+    private final AuthenticationProvider authenticationProvider;
     private final CorsProperties corsProperties;
 
     @Bean
@@ -74,7 +74,7 @@ class SecurityConfig {
                             response.getWriter().write(
                                     "{\"status\":403,\"error\":\"Forbidden\",\"message\":\"Access denied\"}");
                         }))
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -94,20 +94,4 @@ class SecurityConfig {
         return source;
     }
 
-    @Bean
-    AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
-
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

@@ -1,6 +1,6 @@
 package com.felipe.spring_boot_template.config;
 
-import com.felipe.spring_boot_template.auth.api.AuthApi;
+import com.felipe.spring_boot_template.auth.AuthApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
